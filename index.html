@@ -234,6 +234,100 @@ setLink($("lgLink"),CONFIG.lawguardianUrl,"Visit LAWGUARDIAN");
 if(CONFIG.logoSrc){const i=new Image();i.alt="LAWGUARDIAN logo";i.src=CONFIG.logoSrc;$("logoSlot").replaceChildren(i)}
  a.download="Chirag-Zanwar.vcf";document.body.appendChild(a);a.click();a.remove();
 }));
+
+<script>
+const CONFIG = {
+  name: "Chirag Zanwar",
+  phone: "+918805853204",
+  email: "chirag.zanwar@gmail.com",
+  linkedin: "https://www.linkedin.com/in/adv-chirag-zanwar-50b331225/",
+  instagram: "https://www.instagram.com/adv_chiragzanwar/"
+};
+
+// Helper to find an element safely
+const $ = (id) => document.getElementById(id);
+
+// WhatsApp
+if ($("wa")) {
+  $("wa").href = "https://wa.me/" + CONFIG.phone.replace(/\D/g, "");
+  $("wa").target = "_blank";
+  $("wa").rel = "noopener noreferrer";
+}
+
+// Phone
+if ($("tel")) {
+  $("tel").href = "tel:" + CONFIG.phone;
+}
+
+// Email
+if ($("mail")) {
+  $("mail").href = "mailto:" + CONFIG.email;
+  $("mail").textContent = CONFIG.email;
+}
+
+// LinkedIn
+if ($("li")) {
+  $("li").href = CONFIG.linkedin;
+  $("li").textContent = "LinkedIn Profile";
+  $("li").target = "_blank";
+  $("li").rel = "noopener noreferrer";
+}
+
+// Instagram
+const instagramLink =
+  $("ig") ||
+  $("instagram") ||
+  $("insta") ||
+  document.querySelector('a[href*="instagram.com"]');
+
+if (instagramLink) {
+  instagramLink.href = CONFIG.instagram;
+  instagramLink.textContent = "Instagram Profile";
+  instagramLink.target = "_blank";
+  instagramLink.rel = "noopener noreferrer";
+}
+
+// Generate and download contact card
+function saveContact() {
+  const vcard = [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    "N:Zanwar;Chirag;;;",
+    "FN:Chirag Zanwar",
+    "ORG:LAWGUARDIAN",
+    "TITLE:Advocate; Partner",
+    "TEL;TYPE=CELL:+918805853204",
+    "EMAIL;TYPE=INTERNET:chirag.zanwar@gmail.com",
+    "URL:https://www.linkedin.com/in/adv-chirag-zanwar-50b331225/",
+    "URL;TYPE=Instagram:https://www.instagram.com/adv_chiragzanwar/",
+    "END:VCARD"
+  ].join("\r\n");
+
+  const blob = new Blob([vcard], {
+    type: "text/vcard;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = "Chirag-Zanwar.vcf";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// Make every Save Contact link work
+document.querySelectorAll('a[href="Chirag-Zanwar.vcf"]').forEach(button => {
+  button.addEventListener("click", function(event) {
+    event.preventDefault();
+    saveContact();
+  });
+});
 </script>
+
 </body>
 </html>
